@@ -1,0 +1,54 @@
+title 1 - Container initialization
+
+bottomparticipants
+participant #C3002F "...CollectionContainer" as GctrContainer
+participant #a829c3:1 "ComponentStore" as ContainerStore
+participant #FFCA28 "UserService" as InvitationContextService
+participant #0288D1 CollectionDataService
+participant #0288D1 CollectionDataStorageService
+
+lifelinestyle GctrContainer #C3002F:1:dashed
+activecolor GctrContainer #C3002F
+
+lifelinestyle ContainerStore #a829c3:1:dashed
+activecolor ContainerStore #a829c3
+
+lifelinestyle InvitationContextService #FFCA28:1:dashed
+activecolor InvitationContextService #FFCA28
+
+lifelinestyle CollectionDataService #0288D1:1:dashed
+activecolor CollectionDataService #0288D1
+
+lifelinestyle CollectionDataStorageService #0288D1:1:dashed
+activecolor CollectionDataStorageService #0288D1
+
+autoactivation on
+
+GctrContainer->GctrContainer:ngOnInit
+
+GctrContainer->ContainerStore:initialize
+deactivateafter GctrContainer
+
+ContainerStore->>InvitationContextService:withLatestFrom(currentUser$)
+InvitationContextService-->>ContainerStore:<<user>>
+ContainerStore->ContainerStore:registerGetContext
+
+deactivateafter ContainerStore
+ContainerStore->ContainerStore:registerSetContext
+deactivateafter ContainerStore
+ContainerStore->CollectionDataService:initialize(data)
+
+loop s of sourceServices[]
+
+CollectionDataService->CollectionDataStorageService:s.readFromSource()
+
+
+CollectionDataStorageService-->CollectionDataService:this.current = CollectionContext.merge(data, initial)
+
+end
+
+CollectionDataService->CollectionDataService:this.current = CollectionContext.merge(data, initial)
+deactivateafter CollectionDataService
+CollectionDataService->CollectionDataService:this.stateSubject.next(this.current)
+deactivateafter CollectionDataService
+
