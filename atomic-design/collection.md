@@ -18,7 +18,7 @@ actions and filtering as well.
 <table border="0">
  <tr>
     <td>
-        <img src="../assets/images/context-initialization.png" alt="Context Initialization" />
+        <img src="../assets/images/container-initialization.png" alt="Container Initialization" />
         <a target="_blank" href="https://sequencediagram.org/index.html?presentationMode=readOnly#initialData=C4S2BsFMAIEZoLTQMIHsB2wCGJ2QE7S5ghbggBeWoGAULQEarDCoC2ADlvqAMYhdMAZ1pceIfoODQAxMgDMABkUAmAGLQARADpdacFF410aTDjz5N0LEOgBxI-lPZcBUdz4CsmWVgAcKgCcvPIAXPCaaJwYkJgAyqz4kFY2KBguFgmoSe7ikt7SMmpqyACCKn5aAKpCBHEEAG4Syda2AJLoTdjGzpAAHsD1+E28kLmeUrKqfn4AIvD6hsaz1FhDI2NiEwVTFXMLqAaQRiAYK9hZ+FgA5pDrzfTkAGaQ5HhCwACeUPaOzuYEWQKZTqcKhAAmNgAFpBwbQsCcGsdDtlfsAnOkAYQ5EpVGpHiAXm9IB9vjB-q58JcYDJ-EEQmDIUIYXCEaAkbwUYQKZlEjS6cF5ASia5ST8Ol1qKcTOl+oNGs1ZMUyhVGdDYfDEcjwKiJWApRhegN7qMlSVyn5ha9RV8fotjstViaadN9mrmRq2SAOVy0kcTmcnQrTTJXfMrcSxeTDktpec1okbndgy69vN3SzNeztaj7QH0PHLknnbsZuH4QBXVhehoG9DQOi0BzonkEBAAPmbGLMlNC6GuAHl0B0wPQu638B2J9TQsRQGRKGNwZAa9QV09gIDx5jKfRp3yO+29d1pUb5cNmqEAO5gKEAGTXHzU+HYAApeBX8ElMDUCAASABKWhjzrM9nQQQ992ySBQgAHlgitanwdt21oKCkinHdeWg0IkmuEAPgIOxIGAM96GXVdNywDdAXQsY6MwntsKSXDIHwwiqRIsiKMRNdqM3bksLqPk0KEqkD3bPNHQuFNZ3QEgFwoSBX0hbAgNoHVUA4aBbFQJ4dNQT9RmdIQAG0AF09xjB04yDC9Rkw-1pITbJi1koRtCSLBwWfdg4kM-BRlfdTRKc2yLkTW5wMc2NAxk+yYOAKECO0D8v1iaQAF4-VimVMDlbQ2AIW4VNWAAaIh5PncB1NiOFQtywsUximy4rWWSkpStLvyynLWryzcBkK4rlNUrAKrnUgatoHj2T4mjBLCtrnQa-qmoSlr83WjZQk6jyPjXOIKwYAArB1tDwAZXz21LPx6oDZu9eaBL6ra7I2eggA">SOURCE</a>
     </td>
  </tr>
