@@ -1,0 +1,32 @@
+title 2 - CollectionDataService
+
+bottomparticipants
+participant #a829c3 ComponentStore
+participant #0288D1 CollectionDataService
+
+lifelinestyle ComponentStore #a829c3:1:dashed
+activecolor ComponentStore #a829c3
+
+lifelinestyle CollectionDataService #0288D1:1:dashed
+activecolor CollectionDataService #0288D1
+
+autoactivation on
+
+CollectionDataService->CollectionDataService: constructor
+CollectionDataService->CollectionDataService:this.state$ = this.stateSubject.asObservable();
+deactivateafter CollectionDataService
+deactivateafter CollectionDataService
+
+====
+
+ComponentStore->CollectionDataService:setContext(data: CollectionContext)
+CollectionDataService->CollectionDataService:this.current = CollectionContext.merge(this.current, data);
+deactivateafter CollectionDataService
+CollectionDataService->CollectionDataService:this.stateSubject.next(this.current);
+deactivateafter CollectionDataService
+deactivateafter CollectionDataService
+
+====
+
+ComponentStore->CollectionDataService:getContext()
+CollectionDataService-->ComponentStore: this.state$
