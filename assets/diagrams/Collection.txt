@@ -1,0 +1,125 @@
+title 4 - Collection
+
+bottomparticipants
+participant #FF4785 "...Collection \n(Presentational)" as GctrCollection
+participant #C3002F "...CollectionContainer" as GctrContainer
+participant #a829c3 ComponentStore
+participant #0288D1 CollectionDataService
+participant #FFCA28 "ApiCollectionData<T>" as ApiCollectionData
+participantgroup HTTP Interceptors
+participant #lightgray Filter
+participant #lightgray Sort
+participant #lightgray Pagination
+end
+participant #85EA2D API
+
+lifelinestyle GctrCollection #FF4785:1:dashed
+activecolor GctrCollection #FF4785
+
+lifelinestyle GctrContainer #C3002F:1:dashed
+activecolor GctrContainer #C3002F
+
+lifelinestyle ComponentStore #a829c3:1:dashed
+activecolor ComponentStore #a829c3
+
+lifelinestyle CollectionDataService #0288D1:1:dashed
+activecolor CollectionDataService #0288D1
+
+lifelinestyle ApiCollectionData #FFCA28:1:dashed
+activecolor ApiCollectionData #FFCA28
+
+lifelinestyle Filter #lightgray:1:dashed
+lifelinestyle Sort #lightgray:1:dashed
+lifelinestyle Pagination #lightgray:1:dashed
+
+lifelinestyle API #85EA2D:1:dashed
+activecolor API #85EA2D
+
+GctrContainer->GctrContainer:constructor(store)
+activate GctrContainer
+deactivateafter GctrContainer
+
+GctrContainer->GctrContainer:ngOnInit
+activate GctrContainer
+
+GctrContainer->ComponentStore:initialize
+deactivateafter GctrContainer
+
+activate ComponentStore
+ComponentStore->ComponentStore:registerGetContext
+activate ComponentStore
+
+ComponentStore-->(2)GctrCollection:(store.collectionContext$ | async).pagination
+ComponentStore-->(2)GctrCollection:(store.collectionContext$ | async).sort
+deactivateafter ComponentStore
+space
+deactivateafter ComponentStore
+
+
+====
+
+
+
+ComponentStore->ComponentStore:getData()
+activate ComponentStore
+
+ComponentStore->ComponentStore:toggleLoading(true)
+
+
+ComponentStore->CollectionDataService:getData()
+activate ComponentStore
+activate CollectionDataService
+
+CollectionDataService->CollectionDataService:buildContext():HttpContext
+
+CollectionDataService->ApiCollectionData:getCollection(context: HttpContext)
+activate ApiCollectionData
+
+
+ApiCollectionData->API:GET api/<entity>/...
+activate API
+
+note over Filter,Pagination#FFFFC0:--Parse to ODATA--
+
+API-->ApiCollectionData: 200
+deactivate API
+
+ApiCollectionData-->CollectionDataService:Observable<CollectionResult<T>>
+deactivate ApiCollectionData
+
+CollectionDataService-->ComponentStore:result:CollectionResult<T>
+deactivate CollectionDataService
+
+ComponentStore->ComponentStore:updateData(result)
+
+ComponentStore->ComponentStore:toggleLoading(false)
+
+ComponentStore-->(2)GctrCollection:(store.data$ | async)
+
+
+deactivate ComponentStore
+deactivateafter ComponentStore
+
+====
+
+autoactivation on
+
+GctrCollection->ComponentStore:(paginationChanged)="store.setPaginationContext($event)"
+ComponentStore->CollectionDataService:setContext({ pagination: {...} })
+note over CollectionDataService#FFFFC0: --see diagram **2 - CollectionDataService**--
+deactivateafter CollectionDataService
+deactivate ComponentStore
+
+====
+
+GctrCollection->ComponentStore:(sortChanged)="store.setSortContext($event)"
+ComponentStore->CollectionDataService:setContext({ sort: {...} })
+note over CollectionDataService#FFFFC0: --see diagram **2 - CollectionDataService**--
+deactivateafter CollectionDataService
+deactivate ComponentStore
+
+====
+
+GctrCollection->ComponentStore:(selectionChanged)="store.updateSelected($event)"
+ComponentStore->ComponentStore:selectedIds: selectData.map((d) => d.guid)
+deactivateafter ComponentStore

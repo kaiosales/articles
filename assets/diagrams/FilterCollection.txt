@@ -1,0 +1,53 @@
+title 3 - FilterCollection
+
+bottomparticipants
+participant #FF4785 "FilterCollection" as GctrFilterCollection
+participant #C3002F "...CollectionContainer" as GctrContainer
+participant #a829c3:1 ComponentStore
+participant #0288D1 CollectionDataService
+
+lifelinestyle GctrFilterCollection #FF4785:1:dashed
+activecolor GctrFilterCollection #FF4785
+
+lifelinestyle GctrContainer #C3002F:1:dashed
+activecolor GctrContainer #C3002F
+
+lifelinestyle ComponentStore #a829c3:1:dashed
+activecolor ComponentStore #a829c3
+
+lifelinestyle CollectionDataService #0288D1:1:dashed
+activecolor CollectionDataService #0288D1
+
+autoactivation on
+
+GctrContainer->GctrContainer:constructor(store)
+deactivateafter GctrContainer
+
+GctrContainer->GctrContainer:ngOnInit
+
+GctrContainer->ComponentStore:initialize
+deactivateafter GctrContainer
+
+
+ComponentStore->ComponentStore:registerGetContext
+
+ComponentStore-->(2)GctrFilterCollection:(store.collectionContext$ | async).filter
+deactivateafter ComponentStore
+
+====
+
+GctrFilterCollection->ComponentStore:(filterChanged)="store.setFilterContext($event)"
+ComponentStore->>ComponentStore:withLatestFrom(collectionContext$)
+ComponentStore->CollectionDataService:setContext({ filter: [...], pagination: index: 0 })
+note over CollectionDataService#FFFFC0: --see diagram **2 - CollectionDataService**--
+deactivateafter CollectionDataService
+deactivateafter ComponentStore
+
+====
+
+GctrFilterCollection->ComponentStore:(resetFilters)="store.resetFilter()"
+ComponentStore->>ComponentStore:withLatestFrom(collectionContext$)
+ComponentStore->CollectionDataService:setContext({ filter: [], pagination: index: 0 })
+note over CollectionDataService#FFFFC0: --see diagram **2 - CollectionDataService**--
+deactivateafter CollectionDataService
+deactivateafter ComponentStore
